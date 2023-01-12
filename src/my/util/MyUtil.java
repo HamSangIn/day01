@@ -64,6 +64,21 @@ public class MyUtil {
 		   }
 		   
 	   }// end of public static boolean isCheckPasswd(String passwd)-------------
+
+	public static String space_delete(String str) {
+		char[] chArr = str.toCharArray();
+		String result = "";
+		for(int i=0; i<chArr.length; i++) {
+			if((chArr[i]) !=' '){
+				result += chArr[i];
+			}
+			
+		}
+		
+		
+		
+		return result;
+	}
 	
 	
 }
