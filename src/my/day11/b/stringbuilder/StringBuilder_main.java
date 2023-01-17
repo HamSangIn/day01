@@ -44,6 +44,49 @@ public class StringBuilder_main {
 		System.out.println(sb.toString());
 		// 일순신,이순신,삼순신,사순신,오순신,육순신,칠순신,팔순신,구순신
 		
+		// StringBuilder sb 의 초기화 방법 1 
+		sb.setLength(0); // 길이를 0 으로 하면 된다.
+		sb.append("초기화1");
+		
+		System.out.println(sb.toString());
+		// 초기화1
+		
+		// StringBuilder sb 의 초기화 방법 2 
+		sb = new StringBuilder();
+        sb.append("초기화2");
+		
+		System.out.println(sb.toString());
+		// 초기화2
+		
+		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		
+		StringBuilder sb1 = new StringBuilder("Programming");
+		
+		System.out.println("sb1.toString() => " + sb1.toString());
+		// sb1.toString() => Programming
+		
+		System.out.println("sb1 => " + sb1);
+		// sb1 => Programming
+		
+		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		
+		StringBuilder sb2 = sb1.replace(2, 6, "AAA");
+		// sb1 인 "Programming" 에서 2 번째 index 인 "o" 부터 6 번째 index 인 "m" 앞까지를 지우고 
+		// 즉, "ogra" 를 지우고 그 자리에 "AAA" 을 넣어서 바꾸어라.
+		// 그래서 sb1 은 "PrAAAmming" 으로 변경된다.
+		
+		System.out.println("sb1 => " + sb1);
+		// sb1 => PrAAAmming
+		
+		System.out.println("sb2 => " + sb2);
+		// sb2 => PrAAAmming
+		
+		System.out.println("sb1.toString() => " + sb1.toString());
+		// sb1.toString() => PrAAAmming
+		
+		System.out.println("sb2.toString() => " + sb2.toString());
+		// sb2.toString() => PrAAAmming
+		
 	}// end of main()-----------------------------
 
 }
