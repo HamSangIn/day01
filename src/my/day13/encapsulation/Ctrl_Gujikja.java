@@ -1,10 +1,8 @@
-package my.day12.a.abstraction;
+package my.day13.encapsulation;
 
 import java.util.Scanner;
 
-import my.util.MyUtil;
-
-public class GujikjaCtrl {
+public class Ctrl_Gujikja {
 
 	// == 메인 메뉴를 보여주는 메소드 생성하기 == //
 	void main_menu() {
@@ -22,9 +20,6 @@ public class GujikjaCtrl {
 		if( Gujikja.count < guArr.length ) {
 			
 			String userid;
-			String passwd;
-			String name;
-			String jubun;
 			
 			// 아이디는 필수 입력사항이면서 중복된 아이디로 입력하면 안된다.!!
 			// 입력받은 아이디가 중복된 아이디가 아닐때 까지 반복해야 한다.
@@ -42,7 +37,7 @@ public class GujikjaCtrl {
 				// == 가입된 회원들에 대해 중복아이디 검사하기 == //
 				if( !userid.trim().isEmpty() ) {
 					for(int i=0; i<Gujikja.count; i++) {
-						if( userid.equals(guArr[i].userid) ) {
+						if( userid.equals(guArr[i].getUserid()) ) {
 							System.out.println(">> 이미 사용중인 아이디 입니다. << \n"); 
 							isUseID = false;
 							break;
@@ -59,75 +54,39 @@ public class GujikjaCtrl {
 			// end of do~while-------------------------
 			
 			
-			// 비밀번호는 필수 입력사항이면서 비밀번호 조건에 맞을때 까지 반복해야 한다.
-			boolean isUsePasswd;
-			
-			do {
-				isUsePasswd = true;
-				
-				System.out.print("2. 비밀번호 : ");
-				passwd = sc.nextLine(); // "qW12$" "qwer1234$"  
-				                        // "qWer1234$"
-				
-				// 비밀번호 조건에 맞는지 아닌지를 검사한다.
-				if( !MyUtil.isCheckPasswd(passwd) ) {
-					System.out.println(">> [경고] 비밀번호는 8글자 이상 15글자 이하의 대,소문자,숫자,특수기호가 혼합되어야만 합니다. \n"); 
-					isUsePasswd = false;
-				}
-				
-			} while (!isUsePasswd);
-			// end of do~while-------------------------
+			System.out.print("2. 비밀번호 : ");
+			String passwd = sc.nextLine(); // "qW12$" "qwer1234$"  
+			                               // "qWer1234$"
 			
 			
-			// 성명은 필수 입력사항이므로 그냥 엔터나 공백만으로 된것이 아닐때 까지 반복해야 한다.
-			boolean isUseName;
-			
-			do {
-				isUseName = true;
-				
-				System.out.print("3. 성명 : ");
-				name = sc.nextLine(); // ""  "         "  
-				                      // "홍길동"
-				
-				// 입력받은 성명이 그냥 엔터인지 또는 공백만으로 이루져 있는지를 검사한다.
-				if( name.trim().isEmpty() ) {
-					System.out.println(">> [경고] 성명은 공백만으로 된것이 아닌 데이터를 입력해야 합니다. \n"); 
-					isUseName = false;
-				}
-				
-			} while (!isUseName);
-			// end of do~while-------------------------
+			System.out.print("3. 성명 : ");
+			String name = sc.nextLine(); // ""  "         "  
+			                             // "홍길동"
+			                             // "홍Tom"
 			
 			
-			// 주민번호는 필수 입력사항이면서 주민번호 조건에 맞을때 까지 반복해야 한다.
-			boolean isUseJubun;
-			
-			do {
-				isUseJubun = true;
-				
-				System.out.print("4. 주민번호 : ");
-				jubun = sc.nextLine(); // "95abcd1" "9513562"  "9501179" ==> 꽝!!  
-				                       // "9501171" "9501172"  "0101173"  "0201174" ==> 정상   
-				
-				// 주민번호 조건에 맞는지 아닌지를 검사한다.
-				if( !MyUtil.isCheckJubun(jubun) ) {
-					System.out.println(">> [경고] 올바른 주민번호를 입력하세요!! \n"); 
-					isUseJubun = false;
-				}
-				
-			} while (!isUseJubun);
-			// end of do~while-------------------------
-			
+			System.out.print("4. 주민번호 : ");
+			String jubun = sc.nextLine(); // "95abcd1" "9513562"  "9501179" ==> 꽝!!  
+			                              // "9501171" "9501172"  "0101173"  "0201174" ==> 정상
 			
 			Gujikja gu = new Gujikja();
-			gu.userid = userid;
-			gu.passwd = passwd;
-			gu.name = name;
-			gu.jubun = jubun;
+			gu.setUserid(userid);
+			gu.setPasswd(passwd);
+			gu.setName(name);
+			gu.setJubun(jubun);
 			
-			guArr[Gujikja.count++] = gu;
+			if( gu.getUserid() != null &&
+				gu.getPasswd() != null && 
+				gu.getName() != null &&
+				gu.getJubun() != null) {
+				
+				guArr[Gujikja.count++] = gu;
+				System.out.println(">> 구직자 회원가입 성공^^ << \n");	
+			}
 			
-			System.out.println(">> 구직자 회원가입 성공!! << \n");
+			else {
+				System.out.println(">> 구직자 회원가입 실패ㅜㅜ << \n");
+			}
 			
 		}
 		

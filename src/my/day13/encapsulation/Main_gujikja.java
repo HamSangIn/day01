@@ -1,36 +1,36 @@
-package my.day12.a.abstraction;
+package my.day13.encapsulation;
 
 import java.util.Scanner;
 
-public class Gujikja_main {
+public class Main_gujikja {
 
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
-		GujikjaCtrl ctrl = new GujikjaCtrl();
+		Ctrl_Gujikja ctrl = new Ctrl_Gujikja();
 		
 		Gujikja[] guArr = new Gujikja[5];
 		
       /////////////////////////////////////////////////////
 		Gujikja gu1 = new Gujikja();
-		gu1.userid = "eomjh";
-		gu1.passwd = "qWer1234$A";
-		gu1.name = "엄정화";
-		gu1.jubun = "9501172";
+		gu1.setUserid("eomjh");
+		gu1.setPasswd("qWer1234$A");
+		gu1.setName("엄정화");
+		gu1.setJubun("9501172");
 		guArr[Gujikja.count++] = gu1;
 		
 		Gujikja gu2 = new Gujikja();
-		gu2.userid = "leess";
-		gu2.passwd = "abCd123$B";
-		gu2.name = "이순신";
-		gu2.jubun = "0101173";
+		gu2.setUserid("leess");
+		gu2.setPasswd("abCd123$B");
+		gu2.setName("이순신");
+		gu2.setJubun("0101173");
 		guArr[Gujikja.count++] = gu2;
 		
 		Gujikja gu3 = new Gujikja();
-		gu3.userid = "youks";
-		gu3.passwd = "aSdf12345$C";
-		gu3.name = "유관순";
-		gu3.jubun = "8501172";
+		gu3.setUserid("youks");
+		gu3.setPasswd("aSdf12345$C");
+		gu3.setName("유관순");
+		gu3.setJubun("8501172");
 		guArr[Gujikja.count++] = gu3;
 		
       /////////////////////////////////////////////////////	

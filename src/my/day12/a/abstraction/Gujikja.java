@@ -1,6 +1,8 @@
 package my.day12.a.abstraction;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Gujikja {
 
@@ -51,88 +53,86 @@ public class Gujikja {
 	
 	
 	// field(속성) 생성
-	String userid;  // 아이디
-	String passwd;  // 비밀번호
-	String name;    // 성명
-	String jubun;   // 주민번호 앞의 7자리 까지만
-	                // 예: "9512201" 남자  "0112203" 남자
-                    // 예: "9512202" 여자  "0112204" 여자
+	String userid;        // 아이디
+	String passwd;        // 비밀번호
+	String name;          // 성명
+	String jubun;         // 주민번호 앞의 7자리 까지만
+	                      // 예: "9512201" 남자  "0112203" 남자
+                          // 예: "9512202" 여자  "0112204" 여자
+	String register_day;  // 가입일자
 	
 	static int count; // Gujikja 객체(인스턴스)의 개수를 알아오려는 용도 
 	
+	// 기본생성자
+	public Gujikja() {
+		Date now = new Date(); // 현재시각 
+		SimpleDateFormat sdfmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		register_day = sdfmt.format(now);
+	}
 	
 	// method 생성 
 	
-	// == 구직자의 성별을 알려주는 메소드 생성하기 ==
+	// == 구직자의 성별을 알려주는 메소드 생성하기 == 
 	String getGender() {
+		
 		String gender = "";
-		
-		
+				
 		switch (jubun.substring(6)) {
-		case "1":
-		case "3":
-			gender = "남";
-			break;
-
-		default:
-			gender = "여";
-			break;
-		}// end of shitch-----------------------------------------
+			case "1":
+			case "3":	
+				gender = "남";
+				break;
+	
+			default:
+				gender = "여";
+				break;
+		}// end of switch()--------------
 		
 		return gender;
-	}
+	}// end of String getGender()-------------------------
 	
-	// == 구직자의 현재 나이를 알려주는 메소드 생성하기 ==
+	
+	// == 구직자의 현재나이를 알려주는 메소드 생성하기 ==  
 	int getAge() {
 		
 		// 현재나이 = 현재년도 - 태어난년도 + 1;
-		Calendar currentDate = Calendar.getInstance();
-		int currentYear = currentDate.get(Calendar.YEAR);
 		
-		int centry = ("1".equals( jubun.substring(6)) || "2".equals(jubun.substring(6)))?1900:2000;  // a or b 는 삼항연산자로
+		Calendar currentDate = Calendar.getInstance();    // 현재날짜와 시간을 얻어온다. 
+		int currentYear = currentDate.get(Calendar.YEAR); // 2023
 		
-		int birthYear = Integer.parseInt( jubun.substring(0,2)) + centry; // 태어난 년도
+		int centry = ( "1".equals(jubun.substring(6)) || "2".equals(jubun.substring(6)) )?1900:2000; 
 		
+		int birthYear = Integer.parseInt(jubun.substring(0,2)) + centry; 
+		// 태어난년도 
 		
 		return currentYear - birthYear + 1;
 		
-		
-	}//end of int getAge()---------------------------------
+	}// end of int getAge()------------------------ 
 	
 	
-	
-	
-	// == 구직자의 정보를 한줄로 리턴시켜주는 메소드 생성하기 ==
+	// == 구직자의 정보를 한줄로 리턴시켜주는 메소드 생성하기 == 
 	String getInfo() {
-		
+	
+		// eomjh   qwer******    엄정화   여      29   2023-01-17 15:30:20         
+	    
 		StringBuilder sb = new StringBuilder();
 		sb.append(userid+"\t");
 		
 		String star = "";
 		for(int i=0; i<passwd.length()-4; i++) {
 			star += "*";
-			
 		}
 		
-		
-		sb.append(passwd.substring(0,4) + star + "\t");
+		sb.append(passwd.substring(0, 4) + star + "\t");
 		
 		sb.append(name+"\t");
 		sb.append(getGender()+"\t");
 		sb.append(getAge()+"\t");
-		
-		
-		
+		sb.append(register_day);
 		
 		return sb.toString();
-		
-		
-		
-		
-		
-		
-	}// end of String getInfo()----------------------------------
 	
+	}// end of String getInfo()----------------------------
 	
 	
 	
