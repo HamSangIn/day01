@@ -1,4 +1,4 @@
-package my.day14.a.inheritance;
+package my.day16.a.abstractClass;
 
 import java.util.Scanner;
 

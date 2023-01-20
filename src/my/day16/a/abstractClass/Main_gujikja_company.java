@@ -1,4 +1,4 @@
-package my.day14.a.inheritance;
+package my.day16.a.abstractClass;
 
 import java.util.Scanner;
 
@@ -8,13 +8,9 @@ public class Main_gujikja_company {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		Ctrl_Total   ctrl_total = new Ctrl_Total();
-		Ctrl_Gujikja ctrl_gu = new Ctrl_Gujikja();
-		Ctrl_Company ctrl_cp = new Ctrl_Company();
+		Ctrl_Total ctrl_total = new Ctrl_Total();
 		
-		
-		Gujikja[] guArr = new Gujikja[5];
-		Company[] cpArr = new Company[3];
+		Member[] mbr_arr = new Member[10];
 		
       /////////////////////////////////////////////////////
 		Gujikja gu1 = new Gujikja();
@@ -23,7 +19,7 @@ public class Main_gujikja_company {
 		gu1.setName("엄정화");
 		gu1.setJubun("9501172");
 		gu1.setHope_money(5000);
-		guArr[Gujikja.count++] = gu1;
+		ctrl_total.save_mbr_arr(gu1, mbr_arr);
 		
 		Gujikja gu2 = new Gujikja();
 		gu2.setId("leess");
@@ -31,7 +27,8 @@ public class Main_gujikja_company {
 		gu2.setName("이순신");
 		gu2.setJubun("0101173");
 		gu2.setHope_money(6000);
-		guArr[Gujikja.count++] = gu2;
+		ctrl_total.save_mbr_arr(gu2, mbr_arr);
+		
 		
 		Gujikja gu3 = new Gujikja();
 		gu3.setId("youks");
@@ -39,7 +36,8 @@ public class Main_gujikja_company {
 		gu3.setName("유관순");
 		gu3.setJubun("8501172");
 		gu3.setHope_money(7000);
-		guArr[Gujikja.count++] = gu3;
+		ctrl_total.save_mbr_arr(gu3, mbr_arr);
+		
 		
 		// ----------------------------------------- //
 		
@@ -50,7 +48,8 @@ public class Main_gujikja_company {
 		cp1.setBusiness_number("9234567890");
 		cp1.setJobType("IT");
 		cp1.setSeedMoney(700000000);
-		cpArr[Company.count++] = cp1;
+		ctrl_total.save_mbr_arr(cp1, mbr_arr);
+		
 		
 		Company cp2 = new Company();
 		cp2.setId("samsung");
@@ -59,7 +58,7 @@ public class Main_gujikja_company {
 		cp2.setBusiness_number("1234567890");
 		cp2.setJobType("제조업");
 		cp2.setSeedMoney(800000000);
-		cpArr[Company.count++] = cp2;
+		ctrl_total.save_mbr_arr(cp2, mbr_arr);
 		
 		
       /////////////////////////////////////////////////////	

@@ -1,4 +1,4 @@
-package my.day14.a.inheritance;
+package my.day16.a.abstractClass;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -152,6 +152,7 @@ public class Gujikja extends Member {
 	
 	
 	// == 구직자의 정보를 한줄로 리턴시켜주는 메소드 생성하기 == 
+/*
 	String getInfo() {
 		
 		// eomjh   qwer******    엄정화   여      29   2023-01-17 15:30:20   5,000만원
@@ -177,7 +178,7 @@ public class Gujikja extends Member {
 		return sb.toString();
 		
 	}// end of String getInfo()----------------------------
-	
+ */
 	
 	//////////////////////////////////////////////////////////
 	@Override
@@ -192,6 +193,34 @@ public class Gujikja extends Member {
 			 + "5.희망연봉 : " + df.format(hope_money) + "만원\n";
 		
 	}// end of public String toString()----------------------------
+
+	
+	// == 구직자의 정보를 보여주는 미완성 메소드(추상 메소드)를 일반 메소드로 구현(implement) 하기 ==  
+	@Override
+	public String view_info() {
+		
+		// eomjh   qwer******    엄정화   여      29   2023-01-17 15:30:20   5,000만원
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(getId()+"\t");
+		
+		String star = "";
+		for(int i=0; i<super.getPasswd().length()-4; i++) {
+			star += "*";
+		}
+		sb.append(super.getPasswd().substring(0, 4) + star +"\t");
+		
+		sb.append(this.getName()+"\t");
+		sb.append(getGender()+"\t");
+		sb.append(getAge()+"\t");
+		sb.append(super.getRegister_day()+"\t");
+		
+		DecimalFormat df = new DecimalFormat("#,###"); // 3자리 마다 콤마를 찍어주는 것이다.
+		sb.append(df.format(hope_money)+"만원");
+		
+		return sb.toString();
+	}
 	
 	
 	

@@ -1,4 +1,4 @@
-package my.day14.a.inheritance;
+package my.day16.a.abstractClass;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import my.util.MyUtil;
 
-public class Member {
+public abstract class Member { // 미완성 메소드(==추상 메소드)를 가지는 클래스는 반드시 미완성 클래스로 되어야 한다. 
 
 	// field 생성
 	private String id;            // 아이디
@@ -105,6 +105,10 @@ public class Member {
 	public void input_name(String name) {
 		this.name = name;
 	}
+	
+	
+	// == 구직자(Gujikja) 또는 구인회사(Company)의 정보를 보여주는 미완성 메소드(추상 메소드) 생성하기 == 
+	public abstract String view_info();
 	
 	
 }

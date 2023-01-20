@@ -1,4 +1,4 @@
-package my.day14.a.inheritance;
+package my.day16.a.abstractClass;
 
 import java.text.DecimalFormat;
 import java.util.regex.Matcher;
@@ -207,6 +207,21 @@ public class Company extends Member {
 	           "▷직종 : " + jobType +"\n"+
 	           "▷사업자등록번호 : " + business_number +"\n"+	
 	           "▷자본금 : " + df.format(seedMoney) + "원";
+	}
+
+	
+	// == 구인회사의 정보를 보여주는 미완성 메소드(추상 메소드)를 일반 메소드로 구현(implement) 하기 ==  
+	@Override
+	public String view_info() {
+		
+		// 회사명    업종    사업자등록번호        자본금
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		
+		return super.getName() + "\t" +
+		       jobType + "\t" +
+		       business_number + "\t" +
+		       df.format(seedMoney) + "원";
 	}
 	
 }
