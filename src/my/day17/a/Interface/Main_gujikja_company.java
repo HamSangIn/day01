@@ -1,4 +1,4 @@
-package my.day16.a.abstractClass;
+package my.day17.a.Interface;
 
 import java.util.Scanner;
 
@@ -8,7 +8,7 @@ public class Main_gujikja_company {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		Ctrl_Total ctrl_total = new Ctrl_Total();
+		Inter_Ctrl_Total ctrl_total = new Ctrl_Total();
 		
 		Member[] mbr_arr = new Member[10];
 		

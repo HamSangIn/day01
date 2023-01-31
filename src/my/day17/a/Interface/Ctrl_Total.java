@@ -1,10 +1,11 @@
-package my.day16.a.abstractClass;
+package my.day17.a.Interface;
 
 import java.util.Scanner;
 
-public class Ctrl_Total {
+public class Ctrl_Total implements Inter_Ctrl_Total {
 
 	// === 메인 메뉴를 보여주는 메소드 생성하기 === //
+	@Override
 	public void main_menu() {
 		System.out.println("\n === 메인메뉴 ===\n"
 				        + "1.구직자 회원가입   2.구인회사 회원가입   3.구직자 로그인   4.구인회사 로그인\n" 
@@ -14,6 +15,7 @@ public class Ctrl_Total {
 	
 	
 	// == Gujikja 객체 및 Company 객체를 Member[] mbr_arr 배열에 저장시키는 메소드 생성하기 == // 
+	@Override
 	public void save_mbr_arr(Member mbr, Member[] mbr_arr) {
 		
 		Gujikja gu = null;
@@ -66,6 +68,7 @@ public class Ctrl_Total {
 	// === 구직자(Gujikja) 신규 회원가입시
 	//     Gujikja 클래스의 field 의 요구사항에 모두 맞으면 
 	//     Member[] mbr_arr 에 저장시켜주는 메소드 생성하기 ===
+	@Override
 	public void register_gu(Scanner sc, Member[] mbr_arr) {
 		
 		if(Member.count < mbr_arr.length ) {  // 지금까지 생성된 구직자 및 구인회사 회원수가 mbr_arr.length(정원) 보다 적을 경우에만 신규회원으로 받아 들인다. 
@@ -130,6 +133,7 @@ public class Ctrl_Total {
 	// === 구인회사(Company) 신규 회원가입시
 	//     Company 클래스의 field 의 요구사항에 모두 맞으면 
 	//     Member[] mbr_arr 에 저장시켜주는 메소드 생성하기 ===
+	@Override
 	public void register_cp(Scanner sc, Member[] mbr_arr) {
 		
 		if(Member.count < mbr_arr.length ) {  // 지금까지 생성된 구직자 및 구인회사 회원수가 mbr_arr.length(정원) 보다 적을 경우에만 신규회원으로 받아 들인다. 
@@ -198,6 +202,7 @@ public class Ctrl_Total {
 
 
 	// == 구직자 로그인 메소드 생성하기 ==
+	@Override
 	public Gujikja login_gu(Scanner sc, Member[] mbr_arr) {
 		
 		System.out.print("▷ 구직자 ID : ");
@@ -222,6 +227,7 @@ public class Ctrl_Total {
 
 
 	// == 구직자 전용메뉴 메소드 생성하기 ==  
+	@Override
 	public void gu_menu(Scanner sc, Gujikja login_gu, Member[] mbr_arr) {
 		
 		String str_menuno = "";
@@ -352,6 +358,7 @@ public class Ctrl_Total {
 
 
 	// == 구인회사 로그인 해주는 메소드 생성하기 ==
+	@Override
 	public Company login_cp(Scanner sc, Member[] mbr_arr) {
 		
 		System.out.print("▷ 구인회사 ID : ");
@@ -377,6 +384,7 @@ public class Ctrl_Total {
 
 
 	// == 구인회사 전용메뉴를 생성해주는 메소드 생성하기 == //
+	@Override
 	public void cp_menu(Scanner sc, Company login_cp, Member[] mbr_arr) {
 
 		String str_menuno;

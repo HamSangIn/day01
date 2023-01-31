@@ -1,7 +1,9 @@
-package my.day16.a.abstractClass;
+package my.day17.a.Interface;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import my.util.MyUtil;
 
@@ -195,6 +197,44 @@ public class Gujikja extends Member {
 	}// end of public String toString()----------------------------
 
 	
+	@Override
+	public void setName(String name) {
+		
+		// name 에는 한글만 허용하겠다.
+		
+		if(name != null) {
+			
+			// 정규표현식(Regular Expression)이란?
+			// ==> 특정한 규칙을 가진 문자열의 집합을 표현하기 위해 쓰이는 형식언어 
+			
+			// == 1. 정규표현식(Regular Expression) 패턴을 작성한다. == //
+			Pattern p = Pattern.compile("^[가-힣]{2,5}$");
+			// ^ 은 시작을 의미한다.
+			// $ 는 끝을 의미한다.
+			// [] 는 글자 1개가 들어오는 것을 의미한다.
+			// {2,5} 은 반복되어지는 회수를 말하는데 2번 또는 3번 또는 4번 또는 5번 까지를 허용한다는 말이다.
+			
+			// == 2. 검사할 문자열이 주어진 정규식 패턴과 일치하는지 아닌지를 판별하는 객체를 생성한다. == //
+			Matcher m = p.matcher(name);
+			
+			// == 3. 검사할 문자열을 판별하도록 한다. == //
+			// 입력받은 jubun 이 주어진 정규식 패턴과 일치하면 true, 일치하지 않으면 false 를 리턴시켜준다.  
+			boolean bool = m.matches();
+			
+			if(bool) 
+				super.setName_2(name);
+			
+			else 
+				System.out.println(">> 성명은 공백없이 한글로만 2글자 부터 5글자 이내로만 가능합니다. <<\n"); 
+			
+		}
+		else {
+			System.out.println("[경고] 성명은 필수로 공백이 아닌 것으로 입력하셔야 합니다.");
+		}
+
+	}
+	
+	
 	// == 구직자의 정보를 보여주는 미완성 메소드(추상 메소드)를 일반 메소드로 구현(implement) 하기 ==  
 	@Override
 	public String view_info() {
@@ -221,7 +261,7 @@ public class Gujikja extends Member {
 		
 		return sb.toString();
 	}
-	
+
 	
 	
 }

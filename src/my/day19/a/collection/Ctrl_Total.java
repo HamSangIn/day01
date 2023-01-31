@@ -1,10 +1,11 @@
-package my.day16.a.abstractClass;
+package my.day19.a.collection;
 
-import java.util.Scanner;
+import java.util.*;
 
-public class Ctrl_Total {
+public class Ctrl_Total implements Inter_Ctrl_Total {
 
 	// === 메인 메뉴를 보여주는 메소드 생성하기 === //
+	@Override
 	public void main_menu() {
 		System.out.println("\n === 메인메뉴 ===\n"
 				        + "1.구직자 회원가입   2.구인회사 회원가입   3.구직자 로그인   4.구인회사 로그인\n" 
@@ -13,8 +14,9 @@ public class Ctrl_Total {
 	}
 	
 	
-	// == Gujikja 객체 및 Company 객체를 Member[] mbr_arr 배열에 저장시키는 메소드 생성하기 == // 
-	public void save_mbr_arr(Member mbr, Member[] mbr_arr) {
+	// == Gujikja 객체 및 Company 객체를 List<Member> mbrList 에 저장시키는 메소드 생성하기 == // 
+	@Override
+	public void save_mbrList(Member mbr, List<Member> mbrList) {
 		
 		Gujikja gu = null;
 		Company cp = null;
@@ -33,7 +35,7 @@ public class Ctrl_Total {
 			gu.getName() != null &&
 			gu.getJubun() != null ) {
 			
-			mbr_arr[Member.count++] = gu;
+			mbrList.add(gu);
 			
 			System.out.println("[구직자 회원으로 가입 성공함!!]\n");
 		}
@@ -46,9 +48,9 @@ public class Ctrl_Total {
 				 cp.getJobType() != null &&
 				 cp.getSeedMoney() > 0 ) {
 				
-				mbr_arr[Member.count++] = cp;
+				 mbrList.add(cp);
 				
-				System.out.println("[구인회사 회원으로 가입 성공함!!]\n");
+				 System.out.println("[구인회사 회원으로 가입 성공함!!]\n");
 		}
 		
 		else if (cp == null && gu != null) {
@@ -59,146 +61,134 @@ public class Ctrl_Total {
 			System.out.println("[구인회사 회원 가입 실패함!!]\n");
 		}
 		
-	}// end of public void save_mbr_arr(Member mbr, Member[] mbr_arr)---------------------
+	}// end of public void save_mbrList(Member mbr, List<Member> mbrList)---------------------
 
 	
 
 	// === 구직자(Gujikja) 신규 회원가입시
 	//     Gujikja 클래스의 field 의 요구사항에 모두 맞으면 
-	//     Member[] mbr_arr 에 저장시켜주는 메소드 생성하기 ===
-	public void register_gu(Scanner sc, Member[] mbr_arr) {
+	//     List<Member> mbrList 에 저장시켜주는 메소드 생성하기 ===
+	@Override
+	public void register_gu(Scanner sc, List<Member> mbrList) {
 		
-		if(Member.count < mbr_arr.length ) {  // 지금까지 생성된 구직자 및 구인회사 회원수가 mbr_arr.length(정원) 보다 적을 경우에만 신규회원으로 받아 들인다. 
+		// 아이디는 필수 입력사항이면서 중복된 아이디로 입력하면 안된다.!!
+		// 입력받은 아이디가 중복된 아이디가 아닐때 까지 반복해야 한다.
+		String id;
+		boolean isUseID;
 		
-			// 아이디는 필수 입력사항이면서 중복된 아이디로 입력하면 안된다.!!
-			// 입력받은 아이디가 중복된 아이디가 아닐때 까지 반복해야 한다.
-			String id;
-			boolean isUseID;
+		do {
+			isUseID = true;
 			
-			do {
-				isUseID = true;
-				
-				System.out.print("1.아이디 : ");
-				id = sc.nextLine(); // "eomjh"  "leess"   "youks"
-				
-				// == 가입된 구직자 회원들 중에서 중복아이디 검사하기 == //
-				if( !id.trim().isEmpty() ) {
-					for(int i=0; i<Member.count; i++) {
-						if( mbr_arr[i] instanceof Gujikja && id.equals(mbr_arr[i].getId()) ) {
-							System.out.println(">> 이미 사용중인 아이디 입니다. <<\n");
-							isUseID = false;
-							break;
-						}
-					}// end of for--------------------
-				}
-				
-				else {  // ""  또는  "        "
-					isUseID = false;
-				}
-				
-			} while (!isUseID);
-			// end of do ~ while-------------------
+			System.out.print("1.아이디 : ");
+			id = sc.nextLine(); // "eomjh"  "leess"   "youks"
 			
+			// == 가입된 구직자 회원들 중에서 중복아이디 검사하기 == //
+			if( !id.trim().isEmpty() ) {
+				for(int i=0; i<mbrList.size(); i++) {
+					if( mbrList.get(i) instanceof Gujikja && id.equals(mbrList.get(i).getId()) ) { 
+						System.out.println(">> 이미 사용중인 아이디 입니다. <<\n");
+						isUseID = false;
+						break;
+					}
+				}// end of for--------------------
+			}
 			
-			System.out.print("2.비밀번호 : ");
-			String passwd = sc.nextLine();
+			else {  // ""  또는  "        "
+				isUseID = false;
+			}
 			
-			System.out.print("3.성명 : ");
-			String name = sc.nextLine();
-			
-			System.out.print("4.주민번호 : ");
-			String jubun = sc.nextLine();
-			
-			Gujikja gu = new Gujikja();
-			gu.setId(id);
-			gu.setPasswd(passwd);
-			gu.setName(name);
-			gu.setJubun(jubun);
-			
-			save_mbr_arr(gu, mbr_arr);
-			
-		}
+		} while (!isUseID);
+		// end of do ~ while-------------------
 		
-		else { // 지금까지 생성된 구직자 및 구인회사 회원수가 mbr_arr.length(정원) 과 같거나 큰 경우에는 신규회원을 받아들이면 안된다.
-			System.out.println(">> 정원이 초과하여 구직자 회원가입이 불가합니다 !! <<\n");
-		}
 		
-	}// end of public void register_gu(Scanner sc, Member[] mbr_arr)--------
+		System.out.print("2.비밀번호 : ");
+		String passwd = sc.nextLine();
+		
+		System.out.print("3.성명 : ");
+		String name = sc.nextLine();
+		
+		System.out.print("4.주민번호 : ");
+		String jubun = sc.nextLine();
+		
+		Gujikja gu = new Gujikja();
+		gu.setId(id);
+		gu.setPasswd(passwd);
+		gu.setName(name);
+		gu.setJubun(jubun);
+		
+		save_mbrList(gu, mbrList);
+		
+	}// end of public void register_gu(Scanner sc, List<Member> mbrList)--------
 
 	
 
 	// === 구인회사(Company) 신규 회원가입시
 	//     Company 클래스의 field 의 요구사항에 모두 맞으면 
-	//     Member[] mbr_arr 에 저장시켜주는 메소드 생성하기 ===
-	public void register_cp(Scanner sc, Member[] mbr_arr) {
+	//     List<Member> mbrList 에 저장시켜주는 메소드 생성하기 ===
+	@Override
+	public void register_cp(Scanner sc, List<Member> mbrList) {
+			
+		// 아이디는 필수 입력사항이면서 중복된 아이디로 입력하면 안된다.!!
+		// 입력받은 아이디가 중복된 아이디가 아닐때 까지 반복해야 한다.
+		String id;
+		boolean isUseID;
 		
-		if(Member.count < mbr_arr.length ) {  // 지금까지 생성된 구직자 및 구인회사 회원수가 mbr_arr.length(정원) 보다 적을 경우에만 신규회원으로 받아 들인다. 
+		do {
+			isUseID = true;
 			
-			// 아이디는 필수 입력사항이면서 중복된 아이디로 입력하면 안된다.!!
-			// 입력받은 아이디가 중복된 아이디가 아닐때 까지 반복해야 한다.
-			String id;
-			boolean isUseID;
+			System.out.print("1.아이디 : ");
+			id = sc.nextLine(); // "lg"  "samsung"   
 			
-			do {
-				isUseID = true;
-				
-				System.out.print("1.아이디 : ");
-				id = sc.nextLine(); // "lg"  "samsung"   
-				
-				// == 가입된 구인회사들 중에서 중복아이디 검사하기 == //
-				if( !id.trim().isEmpty() ) {
-					for(int i=0; i<Member.count; i++) {
-						if( mbr_arr[i] instanceof Company && id.equals(mbr_arr[i].getId()) ) {
-							System.out.println(">> 이미 사용중인 아이디 입니다. <<\n");
-							isUseID = false;
-							break;
-						}
-					}// end of for--------------------
-				}
-				
-				else {  // ""  또는  "        "
-					isUseID = false;
-				}
-				
-			} while (!isUseID);
-			// end of do ~ while-------------------
+			// == 가입된 구인회사들 중에서 중복아이디 검사하기 == //
+			if( !id.trim().isEmpty() ) {
+				for(int i=0; i<mbrList.size(); i++) {
+					if( mbrList.get(i) instanceof Company && id.equals(mbrList.get(i).getId()) ) {
+						System.out.println(">> 이미 사용중인 아이디 입니다. <<\n");
+						isUseID = false;
+						break;
+					}
+				}// end of for--------------------
+			}
 			
+			else {  // ""  또는  "        "
+				isUseID = false;
+			}
 			
-			System.out.print("2.비밀번호 : ");
-			String passwd = sc.nextLine();
-			
-			System.out.print("3.회사명 : ");
-			String name = sc.nextLine();
-			
-			System.out.print("4.사업자등록번호 : ");
-			String businees_number = sc.nextLine();
-			
-			System.out.print("5.회사직종타입 : ");
-			String jobType = sc.nextLine();
-			
-			System.out.print("6.자본금 : ");
-			String seedMoney = sc.nextLine();
-			
-			Company cp = new Company();
-			cp.setId(id);
-			cp.setPasswd(passwd);
-			cp.setName(name);
-			cp.setBusiness_number(businees_number);
-			cp.setJobType(jobType);
-			cp.setSeedMoney(Long.parseLong(seedMoney));
-			
-			save_mbr_arr(cp, mbr_arr);
-		}
+		} while (!isUseID);
+		// end of do ~ while-------------------
 		
-		else { // 지금까지 생성된 구직자 및 구인회사 회원수가 mbr_arr.length(정원) 과 같거나 큰 경우에는 신규회원을 받아들이면 안된다.
-			System.out.println(">> 정원이 초과하여 구인회사 회원가입이 불가합니다 !! <<\n");
-		}		
 		
-	}// end of public void register_cp(Scanner sc, Member[] mbr_arr)-------
+		System.out.print("2.비밀번호 : ");
+		String passwd = sc.nextLine();
+		
+		System.out.print("3.회사명 : ");
+		String name = sc.nextLine();
+		
+		System.out.print("4.사업자등록번호 : ");
+		String businees_number = sc.nextLine();
+		
+		System.out.print("5.회사직종타입 : ");
+		String jobType = sc.nextLine();
+		
+		System.out.print("6.자본금 : ");
+		String seedMoney = sc.nextLine();
+		
+		Company cp = new Company();
+		cp.setId(id);
+		cp.setPasswd(passwd);
+		cp.setName(name);
+		cp.setBusiness_number(businees_number);
+		cp.setJobType(jobType);
+		cp.setSeedMoney(Long.parseLong(seedMoney));
+		
+		save_mbrList(cp, mbrList);
+		
+	}// end of public void register_cp(Scanner sc, List<Member> mbrList)-------
 
 
 	// == 구직자 로그인 메소드 생성하기 ==
-	public Gujikja login_gu(Scanner sc, Member[] mbr_arr) {
+	@Override
+	public Gujikja login_gu(Scanner sc, List<Member> mbrList) {
 		
 		System.out.print("▷ 구직자 ID : ");
 		String id = sc.nextLine();
@@ -206,23 +196,24 @@ public class Ctrl_Total {
 		System.out.print("▷ 비밀번호 : ");
 		String passwd = sc.nextLine();
 		
-		for(int i=0; i<Member.count; i++) {
+		for(int i=0; i<mbrList.size(); i++) {
 			
-			if( mbr_arr[i] instanceof Gujikja && 
-				id.equals(mbr_arr[i].getId()) &&
-				passwd.equals(mbr_arr[i].getPasswd()) ) {
+			if( mbrList.get(i) instanceof Gujikja && 
+				id.equals(mbrList.get(i).getId()) &&
+				passwd.equals(mbrList.get(i).getPasswd()) ) {
 				
-				return (Gujikja) mbr_arr[i];
+				return (Gujikja) mbrList.get(i);
 			}
 			
 		}// end of for---------------------
 		
 		return null;
-	}// end of public Gujikja login_gu(Scanner sc, Member[] mbr_arr)--------------
+	}// end of public Gujikja login_gu(Scanner sc, List<Member> mbrList)--------------
 
 
 	// == 구직자 전용메뉴 메소드 생성하기 ==  
-	public void gu_menu(Scanner sc, Gujikja login_gu, Member[] mbr_arr) {
+	@Override
+	public void gu_menu(Scanner sc, Gujikja login_gu, List<Member> mbrList) {
 		
 		String str_menuno = "";
 		
@@ -243,7 +234,7 @@ public class Ctrl_Total {
 					break;
 					
 				case "3": // 모든구인회사 조회
-					show_all_companyInfo(mbr_arr);
+					show_all_companyInfo(mbrList);
 					break;
 					
 				case "4": // 로그아웃
@@ -259,7 +250,7 @@ public class Ctrl_Total {
 		
 		System.out.println(">> 로그아웃 되었습니다. << \n");
 		
-	}// end of public void gu_menu(Scanner sc, Gujikja login_gu, Member[] mbr_arr)---------------
+	}// end of public void gu_menu(Scanner sc, Gujikja login_gu, List<Member> mbrList)---------------
     	
 	
 
@@ -315,12 +306,12 @@ public class Ctrl_Total {
 	
 	
 	// == 모든구인회사 조회 해주는 메소드 생성하기 == //
-	private void show_all_companyInfo(Member[] mbr_arr) {
+	private void show_all_companyInfo(List<Member> mbrList) {
 		
 		int company_count = 0;
 		
-		for(int i=0; i<Member.count; i++) {
-			if(mbr_arr[i] instanceof Company) {
+		for(int i=0; i<mbrList.size(); i++) {
+			if(mbrList.get(i) instanceof Company) {
 				company_count++;
 				break;
 			}
@@ -338,9 +329,9 @@ public class Ctrl_Total {
 			
 			StringBuilder sb = new StringBuilder();
 			
-			for(int i=0; i<Member.count; i++) {
-				if( mbr_arr[i] instanceof Company ) {
-					sb.append(mbr_arr[i].view_info()+"\n");
+			for(int i=0; i<mbrList.size(); i++) {
+				if( mbrList.get(i) instanceof Company ) {
+					sb.append(mbrList.get(i).view_info()+"\n");
 				}
 			}// end of for---------------------
 			
@@ -348,11 +339,12 @@ public class Ctrl_Total {
 		//  또는	
 			System.out.println(sb);
 		}
-	}// end of private void show_all_companyInfo(Member[] mbr_arr)------
+	}// end of private void show_all_companyInfo(List<Member> mbrList)------
 
 
 	// == 구인회사 로그인 해주는 메소드 생성하기 ==
-	public Company login_cp(Scanner sc, Member[] mbr_arr) {
+	@Override
+	public Company login_cp(Scanner sc, List<Member> mbrList) {
 		
 		System.out.print("▷ 구인회사 ID : ");
 		String id = sc.nextLine();
@@ -360,24 +352,25 @@ public class Ctrl_Total {
 		System.out.print("▷ 비밀번호 : ");
 		String passwd = sc.nextLine();
 		
-		for(int i=0; i<Member.count; i++) {
+		for(int i=0; i<mbrList.size(); i++) {
 			
-			if( mbr_arr[i] instanceof Company && 
-				id.equals(mbr_arr[i].getId()) &&
-				passwd.equals(mbr_arr[i].getPasswd()) ) {
+			if( mbrList.get(i) instanceof Company && 
+				id.equals(mbrList.get(i).getId()) &&
+				passwd.equals(mbrList.get(i).getPasswd()) ) {
 				
-				return (Company) mbr_arr[i];
+				return (Company) mbrList.get(i);
 			}
 			
 		}// end of for---------------------
 		
 		return null;		
 		
-	}// end of public Company login_cp(Scanner sc, Member[] mbr_arr)-----
+	}// end of public Company login_cp(Scanner sc, List<Member> mbrList)-----
 
 
 	// == 구인회사 전용메뉴를 생성해주는 메소드 생성하기 == //
-	public void cp_menu(Scanner sc, Company login_cp, Member[] mbr_arr) {
+	@Override
+	public void cp_menu(Scanner sc, Company login_cp, List<Member> mbrList) {
 
 		String str_menuno;
 		
@@ -399,19 +392,19 @@ public class Ctrl_Total {
 					break;
 					
 				case "3": // 모든구직자 조회
-					show_all_gujikja(mbr_arr);
+					show_all_gujikja(mbrList);
 					break;
 					
 				case "4": // 성별검색
-					search_gender(sc, mbr_arr);
+					search_gender(sc, mbrList);
 					break;	
 					
 				case "5": // 연령대검색
-					search_ageline(sc, mbr_arr);
+					search_ageline(sc, mbrList);
 					break;	
 					
 				case "6": // 성별 및 연령대검색
-					search_gender_ageline(sc, mbr_arr);
+					search_gender_ageline(sc, mbrList);
 					break;	
 					
 				case "7": // 로그아웃
@@ -427,7 +420,7 @@ public class Ctrl_Total {
 		
 		System.out.println(">> 로그아웃 되었습니다. << \n");				
 		
-	}// end of public void cp_menu(Scanner sc, Company login_cp, Member[] mbr_arr)-------
+	}// end of public void cp_menu(Scanner sc, Company login_cp, List<Member> mbrList)-------
 
 
 	// 회사정보 보기 메소드 생성하기 
@@ -486,12 +479,12 @@ public class Ctrl_Total {
 		
 		
 	// 모든구직자 조회 메소드 생성하기 
-	private void show_all_gujikja(Member[] mbr_arr) {
+	private void show_all_gujikja(List<Member> mbrList) {
 		
 		int gujikja_count = 0;
 		
-		for(int i=0; i<Member.count; i++) {
-			if(mbr_arr[i] instanceof Gujikja) {
+		for(int i=0; i<mbrList.size(); i++) {
+			if(mbrList.get(i) instanceof Gujikja) {
 				gujikja_count++;
 				break;
 			}
@@ -509,10 +502,10 @@ public class Ctrl_Total {
 			
 			StringBuilder sb = new StringBuilder();
 			
-			for(int i=0; i<Member.count; i++) {
-				if( mbr_arr[i] instanceof Gujikja ) {
+			for(int i=0; i<mbrList.size(); i++) {
+				if( mbrList.get(i) instanceof Gujikja ) {
 					
-					String temp_info = mbr_arr[i].view_info();
+					String temp_info = mbrList.get(i).view_info();
 				//	temp_info ==> eomjh   qwer******    엄정화   여      29   2023-01-17 15:30:20   5,000만원 
 					
 					int index_tab = temp_info.indexOf("\t");
@@ -530,11 +523,11 @@ public class Ctrl_Total {
 			System.out.println(sb);
 		}		
 		
-	}// end of private void show_all_gujikja(Member[] mbr_arr)-------
+	}// end of private void show_all_gujikja(List<Member> mbrList)-------
 		
 		
 	// 성별검색 메소드 생성하기 
-	private void search_gender(Scanner sc, Member[] mbr_arr) {
+	private void search_gender(Scanner sc, List<Member> mbrList) {
 		
 		do { 
 			System.out.print("▷성별[남/여] : ");
@@ -545,9 +538,9 @@ public class Ctrl_Total {
 				
 				int gender_count = 0;
 				
-				for(int i=0; i<Member.count; i++) {
-					if(mbr_arr[i] instanceof Gujikja &&
-					   gender.equals( ((Gujikja) mbr_arr[i]).getGender() ) ) {
+				for(int i=0; i<mbrList.size(); i++) {
+					if(mbrList.get(i) instanceof Gujikja &&
+					   gender.equals( ((Gujikja) mbrList.get(i)).getGender() ) ) {
 						  gender_count++;	
 						  break;
 					}
@@ -564,11 +557,11 @@ public class Ctrl_Total {
 						
 						StringBuilder sb = new StringBuilder();
 						
-						for(int i=0; i<Member.count; i++) {
-							if( mbr_arr[i] instanceof Gujikja &&
-								gender.equals( ((Gujikja) mbr_arr[i]).getGender() ) ) {
+						for(int i=0; i<mbrList.size(); i++) {
+							if( mbrList.get(i) instanceof Gujikja &&
+								gender.equals( ((Gujikja) mbrList.get(i)).getGender() ) ) {
 								
-								String temp_info = mbr_arr[i].view_info();
+								String temp_info = mbrList.get(i).view_info();
 								int index_tab = temp_info.indexOf("\t");
 								temp_info = temp_info.substring(index_tab+1);
 								
@@ -593,11 +586,11 @@ public class Ctrl_Total {
 			
 		} while(true);
 		
-	}// end of private void search_gender(Scanner sc, Member[] mbr_arr)------
+	}// end of private void search_gender(Scanner sc, List<Member> mbrList)------
 		
 		
 	// 연령대검색	
-	private void search_ageline(Scanner sc, Member[] mbr_arr) {
+	private void search_ageline(Scanner sc, List<Member> mbrList) {
 		
 		do { 
 			System.out.print("▷연령대 : ");
@@ -613,9 +606,9 @@ public class Ctrl_Total {
 				else {
 					int ageline_count = 0;
 					
-					for(int i=0; i<Member.count; i++) {
-						if(mbr_arr[i] instanceof Gujikja &&
-						   ageline == ((Gujikja) mbr_arr[i]).getAge()/10*10 ) {
+					for(int i=0; i<mbrList.size(); i++) {
+						if(mbrList.get(i) instanceof Gujikja &&
+						   ageline == ((Gujikja) mbrList.get(i)).getAge()/10*10 ) {
 							  ageline_count++;	
 							  break;
 						}
@@ -632,11 +625,11 @@ public class Ctrl_Total {
 							
 							StringBuilder sb = new StringBuilder();
 							
-							for(int i=0; i<Member.count; i++) {
-								if( mbr_arr[i] instanceof Gujikja &&
-								    ageline == ((Gujikja) mbr_arr[i]).getAge()/10*10 ) {
+							for(int i=0; i<mbrList.size(); i++) {
+								if( mbrList.get(i) instanceof Gujikja &&
+								    ageline == ((Gujikja) mbrList.get(i)).getAge()/10*10 ) {
 									
-									String temp_info = mbr_arr[i].view_info();
+									String temp_info = mbrList.get(i).view_info();
 									int index_tab = temp_info.indexOf("\t");
 									temp_info = temp_info.substring(index_tab+1);
 									
@@ -661,15 +654,15 @@ public class Ctrl_Total {
 			
 		} while(true);
 		
-	}// end of private void search_ageline(Scanner sc, Member[] mbr_arr)-------
+	}// end of private void search_ageline(Scanner sc, List<Member> mbrList)-------
 	
 	
 	// 성별 및 연령대검색 메소드 생성하기
-	private void search_gender_ageline(Scanner sc, Member[] mbr_arr) {
+	private void search_gender_ageline(Scanner sc, List<Member> mbrList) {
 		
 		// 풀이 안합니다. ~~~
 		
-	}// end of private void search_gender_ageline(Scanner sc, Member[] mbr_arr)------
+	}// end of private void search_gender_ageline(Scanner sc, List<Member> mbrList)------
 
 	
 }

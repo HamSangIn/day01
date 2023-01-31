@@ -1,6 +1,6 @@
-package my.day16.a.abstractClass;
+package my.day19.a.collection;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Main_gujikja_company {
 
@@ -8,9 +8,9 @@ public class Main_gujikja_company {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		Ctrl_Total ctrl_total = new Ctrl_Total();
-		
-		Member[] mbr_arr = new Member[10];
+		Inter_Ctrl_Total ctrl_total = new Ctrl_Total();
+
+		List<Member> mbrList = new ArrayList<>();
 		
       /////////////////////////////////////////////////////
 		Gujikja gu1 = new Gujikja();
@@ -19,7 +19,7 @@ public class Main_gujikja_company {
 		gu1.setName("엄정화");
 		gu1.setJubun("9501172");
 		gu1.setHope_money(5000);
-		ctrl_total.save_mbr_arr(gu1, mbr_arr);
+		ctrl_total.save_mbrList(gu1, mbrList);
 		
 		Gujikja gu2 = new Gujikja();
 		gu2.setId("leess");
@@ -27,7 +27,7 @@ public class Main_gujikja_company {
 		gu2.setName("이순신");
 		gu2.setJubun("0101173");
 		gu2.setHope_money(6000);
-		ctrl_total.save_mbr_arr(gu2, mbr_arr);
+		ctrl_total.save_mbrList(gu2, mbrList);
 		
 		
 		Gujikja gu3 = new Gujikja();
@@ -36,7 +36,7 @@ public class Main_gujikja_company {
 		gu3.setName("유관순");
 		gu3.setJubun("8501172");
 		gu3.setHope_money(7000);
-		ctrl_total.save_mbr_arr(gu3, mbr_arr);
+		ctrl_total.save_mbrList(gu3, mbrList);
 		
 		
 		// ----------------------------------------- //
@@ -48,7 +48,7 @@ public class Main_gujikja_company {
 		cp1.setBusiness_number("9234567890");
 		cp1.setJobType("IT");
 		cp1.setSeedMoney(700000000);
-		ctrl_total.save_mbr_arr(cp1, mbr_arr);
+		ctrl_total.save_mbrList(cp1, mbrList);
 		
 		
 		Company cp2 = new Company();
@@ -58,7 +58,7 @@ public class Main_gujikja_company {
 		cp2.setBusiness_number("1234567890");
 		cp2.setJobType("제조업");
 		cp2.setSeedMoney(800000000);
-		ctrl_total.save_mbr_arr(cp2, mbr_arr);
+		ctrl_total.save_mbrList(cp2, mbrList);
 		
 		
       /////////////////////////////////////////////////////	
@@ -70,20 +70,20 @@ public class Main_gujikja_company {
 			
 			switch (smenuNo) {
 				case "1": // 구직자 회원가입
-					ctrl_total.register_gu(sc, mbr_arr);
+					ctrl_total.register_gu(sc, mbrList);
 					break;
 					
 				case "2": // 구인회사 회원가입
-					ctrl_total.register_cp(sc, mbr_arr);
+					ctrl_total.register_cp(sc, mbrList);
 					break;
 					
 				case "3": // 구직자 로그인
-					Gujikja login_gu = ctrl_total.login_gu(sc, mbr_arr);
+					Gujikja login_gu = ctrl_total.login_gu(sc, mbrList);
 					
 					if(login_gu != null) {
 						System.out.println(">> 구직자 로그인 성공^^ <<\n");
 						
-						ctrl_total.gu_menu(sc, login_gu, mbr_arr); // 구직자 전용메뉴 
+						ctrl_total.gu_menu(sc, login_gu, mbrList); // 구직자 전용메뉴 
 					}
 					else {
 						System.out.println(">> 구직자 로그인 실패ㅜㅜ <<\n");
@@ -92,12 +92,12 @@ public class Main_gujikja_company {
 					break;
 					
 				case "4": // 구인회사 로그인
-					Company login_cp = ctrl_total.login_cp(sc, mbr_arr);
+					Company login_cp = ctrl_total.login_cp(sc, mbrList);
 					
 					if(login_cp != null) {
 						System.out.println(">> 구인회사 로그인 성공^^ <<\n");
 						
-						ctrl_total.cp_menu(sc, login_cp, mbr_arr); // 구인회사 전용메뉴
+						ctrl_total.cp_menu(sc, login_cp, mbrList); // 구인회사 전용메뉴
 					}
 					else {
 						System.out.println(">> 구인회사 로그인 실패ㅜㅜ <<\n");

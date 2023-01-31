@@ -15,6 +15,8 @@ public abstract class Member { // 미완성 메소드(==추상 메소드)를 가
 	private String name;          // 성명(개인성명, 회사명)
 	private String register_day;  // 가입일자
 	
+	static int count;             // Gujikja 객체(인스턴스) 및 Company 객체(인스턴스)의 개수를 알아오려는 용도 
+	
 	// 기본생성자
 	public Member() {
 		System.out.println(">>> 확인용 부모클래스인 Member 클래스 생성자 호출됨.!!");
